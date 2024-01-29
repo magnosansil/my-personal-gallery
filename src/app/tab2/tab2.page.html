@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Photo Gallery
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Photo Gallery</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" *ngIf="photoService.photos.length === 0" class="display"
+  class="no-image-message ion-text-center ion-justify-content-center">
+    There is no photos yet. Fill it taking a picture now!
+  </ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of photoService.photos; index as position"
+      (mouseenter)="showDeleteIcon = true"
+      (mouseleave)="showDeleteIcon = false"
+      [ngClass]="{'delete-hover': showDeleteIcon}" 
+      >
+        <ion-icon name="trash" class="delete-icon" (click)="photoService.deletePicture(position)" *ngIf="showDeleteIcon"></ion-icon>
+        <ion-img [src]="photo.webviewPath"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="addPhotoToGallery()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
