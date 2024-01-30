@@ -11,7 +11,7 @@ import { Capacitor } from '@capacitor/core';
 
 export class PhotoService {
   public photos: UserPhoto[] = [];
-  private PHOTO_STORAGE: string = 'photos';
+  public PHOTO_STORAGE: string = 'photos';
   private platform: Platform;
 
   constructor(platform: Platform) {
@@ -68,23 +68,39 @@ export class PhotoService {
   public async deletePicture(position: number) {
     // Remove the photo from the array
     const deletedPhoto = this.photos.splice(position, 1)[0];
-  
-    // Update the local storage
-    await Preferences.set({
-      key: this.PHOTO_STORAGE,
-      value: JSON.stringify(this.photos)
-    });
 
+    if (deletedPhoto) {
+      // Update the local storage
+      await Preferences.set({
+        key: this.PHOTO_STORAGE,
+        value: JSON.stringify(this.photos)
+      });
+    }
     // Delete the file from storage
     if (this.platform.is('hybrid')) {
-      await Filesystem.deleteFile({
-        path: deletedPhoto.filepath
-      })
+      try {
+        await Filesystem.deleteFile({
+          path: deletedPhoto.filepath
+        });
+      } catch (error) {
+        console.error('Error deleting file: ', error);
+      }
     } else {
-      await Filesystem.deleteFile({
-        path: deletedPhoto.filepath,
-        directory: Directory.Data
-      });
+      try {
+        const fileExists = await Filesystem.stat({
+          path: deletedPhoto.filepath,
+          directory: Directory.Data
+        });
+
+        if (fileExists && fileExists.type === 'file') {
+          await Filesystem.deleteFile({
+            path: deletedPhoto.filepath,
+            directory: Directory.Data
+          })
+        }
+      } catch(error) {
+        console.error('Error deleting file: ', error);
+      }
     }
   }
 

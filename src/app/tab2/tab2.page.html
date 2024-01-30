@@ -25,8 +25,8 @@
       (mouseleave)="showDeleteIcon = false"
       [ngClass]="{'delete-hover': showDeleteIcon}" 
       >
-        <ion-icon name="trash" class="delete-icon" (click)="photoService.deletePicture(position)" *ngIf="showDeleteIcon"></ion-icon>
-        <ion-img [src]="photo.webviewPath"></ion-img>
+        <ion-icon name="trash" class="delete-icon" (click)="deletePhoto(position)" *ngIf="showDeleteIcon"></ion-icon>
+        <ion-img class="image" [src]="photo.webviewPath"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

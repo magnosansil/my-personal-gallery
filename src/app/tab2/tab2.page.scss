@@ -22,3 +22,12 @@
 .delete-hover:hover .delete-icon {
     display: block;
 }
+
+.image {
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+.image:hover, 
+.image:active  {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
