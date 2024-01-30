@@ -136,9 +136,6 @@ export class PhotoService {
       }
     }    
   }
-
-  
-
 }
 
 export interface UserPhoto {
