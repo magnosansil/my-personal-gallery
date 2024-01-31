@@ -13,5 +13,36 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Settings"></app-explore-container>
+  <ion-accordion-group>
+    <ion-accordion toggleIcon="caret-down-circle" value="ipsum">
+      <ion-item slot="header" color="light">
+        <ion-label>Lorem Ipsum</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Lorem Ipsum</div>
+    </ion-accordion>
+
+    <ion-accordion toggleIcon="caret-down-circle" value="theme">
+      <ion-item slot="header" color="light">
+        <ion-label>Theme</ion-label>
+      </ion-item>
+        <ion-list slot="content">
+          <ion-item>
+            <ion-checkbox class="ion-padding" slot="content" slot="start">System Default</ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox class="ion-padding" slot="content" slot="start">Light</ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox class="ion-padding" slot="content"slot="start">Dark</ion-checkbox>
+          </ion-item>
+        </ion-list>
+    </ion-accordion>
+
+    <ion-accordion toggleIcon="caret-down-circle" value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>Credits</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Third Content</div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
